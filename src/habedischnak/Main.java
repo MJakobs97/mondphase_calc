@@ -1,5 +1,6 @@
 package habedischnak;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -38,7 +39,21 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 	// write your code here
-    calculate_moon_dates();
+    //calculate_moon_dates();
 
+    /*Bare window*/
+    JFrame dateFrame = new JFrame("Next Moon");
+    //dateFrame.setLayout(null);
+
+
+
+
+    /*Labels*/
+    JLabel today = new JLabel("Heutiges Datum");
+    today.setLocation(50,50);
+
+    dateFrame.getContentPane().add(today);
+    dateFrame.setSize(640,480);
+    dateFrame.setVisible(true);
     }
 }
