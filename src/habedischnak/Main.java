@@ -2,6 +2,8 @@ package habedischnak;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -14,13 +16,15 @@ import java.time.LocalDate;
 public class Main {
 
 public static JFrame mainframe;
+public static JTextField datumseingabe;
 
-public static void calculate_moon_dates(){
+public static void calculate_moon_dates(LocalDate now){
         double synodic_month = 29.530588;
 
         LocalDate historic_full_moon = LocalDate.of(2000,1,21);
-        LocalDate today = LocalDate.now();
+        //LocalDate today = LocalDate.now();
         //LocalDate today = LocalDate.of(2021,9,25);
+        LocalDate today = now;
         LocalDate nextFull, nextNew;
 
         /*Get time between today and historic full moon & calculate cycles */
@@ -53,7 +57,7 @@ public static void createGUI(){
     labelheute.setVisible(true);
     panel.add(labelheute);
 
-    JTextField datumseingabe = new JTextField("yyyy-mm-dd");
+    datumseingabe = new JTextField("yyyy-mm-dd");
     datumseingabe.setEditable(true);
     datumseingabe.setLocation(100,20);
     datumseingabe.setVisible(true);
@@ -77,7 +81,13 @@ public static void createGUI(){
     calc.setEnabled(true);
     calc.setLocation(150,300);
     calc.setVisible(true);
-    panel.add(calc);
+    calc.addActionListener(new ActionListener() {
+                               @Override
+                               public void actionPerformed(ActionEvent e) {
+                                   calculate_moon_dates(readToday());
+                               }
+                           });
+            panel.add(calc);
 
 
 
@@ -87,13 +97,24 @@ public static void createGUI(){
 
 }
 
-public LocalDate readToday(){
+public static LocalDate readToday(){
 
-    mainframe.getContentPane().getComponents().getClass();
+    Component[] components = mainframe.getContentPane().getComponents();
+    String today = datumseingabe.getText();
 
-    return null;
+    /*for (Component c:components) {
+        if (c instanceof JTextField && ((JTextField) c).isEditable()){today = ((JTextField) c).getText();}
+    }*/
+
+    if (today.equalsIgnoreCase("yyyy-mm-dd") || today.matches("^[y]{1,4}[-][m]{0,2}[-][d]{0,4}$")){return null;}
+
+    String[] fractured = today.split("-");
 
 
+
+    LocalDate dateOfToday = LocalDate.of(Integer.parseInt(fractured[0]), Integer.parseInt(fractured[1]), Integer.parseInt(fractured[2]));
+
+    return dateOfToday;
 }
 
     public static void main(String[] args) throws IOException {
