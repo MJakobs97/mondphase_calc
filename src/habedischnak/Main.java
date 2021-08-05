@@ -18,7 +18,7 @@ public class Main {
     double elapsed = Duration.between(historic_full_moon.atStartOfDay(), today.atStartOfDay()).toDays();
     double elapsed_cycles = elapsed/synodic_month;
 
-    double elapsed_nachkomma = (elapsed_cycles-(elapsed_cycles/1));
+    double elapsed_nachkomma = (elapsed_cycles-((int) elapsed_cycles));
     double until_next_full = (1 - elapsed_nachkomma)*synodic_month;
 
 
