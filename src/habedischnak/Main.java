@@ -17,8 +17,18 @@ public class Main {
 
 public static JFrame mainframe;
 public static JTextField datumseingabe;
+public static JTextField vollmondausgabe;
+public static JTextField neumondausgabe;
+
+public static void setVollmondausgabe(String next){vollmondausgabe.setText(next);}
+public static void setNeumondausgabe(String next){neumondausgabe.setText(next);}
+
+
 
 public static void calculate_moon_dates(LocalDate now){
+        if (now == null){return;}
+
+
         double synodic_month = 29.530588;
 
         LocalDate historic_full_moon = LocalDate.of(2000,1,21);
@@ -43,6 +53,10 @@ public static void calculate_moon_dates(LocalDate now){
         nextNew = today.plusDays((long)until_next_new);
 
         System.out.println("Next new moon is on "+nextNew);
+
+        setVollmondausgabe(nextFull.toString());
+        setNeumondausgabe(nextNew.toString());
+
 }
 
 public static void createGUI(){
@@ -70,11 +84,26 @@ public static void createGUI(){
     panel.add(labelnextfull);
 
 
-    JTextField vollmondausgabe = new JTextField("");
+    vollmondausgabe = new JTextField("");
     vollmondausgabe.setEditable(false);
     vollmondausgabe.setLocation(200,50);
     vollmondausgabe.setVisible(true);
     panel.add(vollmondausgabe);
+
+    JLabel labelnextnew = new JLabel("Nächster Neumond");
+    labelnextfull.setLocation(200,150);
+    labelnextfull.setVisible(true);
+    panel.add(labelnextfull);
+
+
+    neumondausgabe = new JTextField("");
+    neumondausgabe.setEditable(false);
+    neumondausgabe.setLocation(200,50);
+    neumondausgabe.setVisible(true);
+    panel.add(neumondausgabe);
+
+
+
 
 
     JButton calc = new JButton("Berechne");
@@ -97,6 +126,10 @@ public static void createGUI(){
 
 }
 
+
+
+
+
 public static LocalDate readToday(){
 
     Component[] components = mainframe.getContentPane().getComponents();
@@ -106,11 +139,9 @@ public static LocalDate readToday(){
         if (c instanceof JTextField && ((JTextField) c).isEditable()){today = ((JTextField) c).getText();}
     }*/
 
-    if (today.equalsIgnoreCase("yyyy-mm-dd") || today.matches("^[y]{1,4}[-][m]{0,2}[-][d]{0,4}$")){return null;}
+    if (today.equalsIgnoreCase("yyyy-mm-dd") || today.matches("^[y]{1,4}[-][m]{0,2}[-][d]{0,4}$") || today.isEmpty() || today.length()<8 || today.length()>10){return null;}
 
     String[] fractured = today.split("-");
-
-
 
     LocalDate dateOfToday = LocalDate.of(Integer.parseInt(fractured[0]), Integer.parseInt(fractured[1]), Integer.parseInt(fractured[2]));
 
