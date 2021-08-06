@@ -26,7 +26,11 @@ public static void setNeumondausgabe(String next){neumondausgabe.setText(next);}
 
 
 public static void calculate_moon_dates(LocalDate now){
-        if (now == null){return;}
+        if (now == null){
+        setVollmondausgabe("Heutiges Datum Fehlerhaft!");
+        setNeumondausgabe("Format: yyyy-mm-dd");
+        return;
+        }
 
 
         double synodic_month = 29.530588;
@@ -61,7 +65,8 @@ public static void calculate_moon_dates(LocalDate now){
 
 public static void createGUI(){
     mainframe = new JFrame("Moon Calculations");
-    mainframe.setSize(500,500);
+    mainframe.setSize(300,300);
+    mainframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
     JPanel panel = new JPanel();
@@ -104,9 +109,6 @@ public static void createGUI(){
     panel.add(neumondausgabe );
 
 
-
-
-
     JButton calc = new JButton("Berechne");
     calc.setEnabled(true);
     //calc.setLocation(150,300);
@@ -123,7 +125,7 @@ public static void createGUI(){
     panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
     mainframe.getContentPane().add(panel);
-    mainframe.pack();
+    //mainframe.pack();
     mainframe.show();
 
 }
