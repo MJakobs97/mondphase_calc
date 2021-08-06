@@ -61,46 +61,47 @@ public static void calculate_moon_dates(LocalDate now){
 
 public static void createGUI(){
     mainframe = new JFrame("Moon Calculations");
+    mainframe.setSize(500,500);
 
 
     JPanel panel = new JPanel();
-    panel.setLayout(new GridLayout(3,1));
+    panel.setLayout(new GridLayout(0,1));
 
     JLabel labelheute = new JLabel("Heutiges Datum");
-    labelheute.setLocation(50,20);
+    //labelheute.setLocation(50,20);
     labelheute.setVisible(true);
     panel.add(labelheute);
 
     datumseingabe = new JTextField("yyyy-mm-dd");
     datumseingabe.setEditable(true);
-    datumseingabe.setLocation(100,20);
+    //datumseingabe.setLocation(100,20);
     datumseingabe.setVisible(true);
-    panel.add(datumseingabe);
+    panel.add(datumseingabe );
 
 
     JLabel labelnextfull = new JLabel("Nächster Vollmond");
-    labelnextfull.setLocation(200,150);
+    //labelnextfull.setLocation(50,50);
     labelnextfull.setVisible(true);
-    panel.add(labelnextfull);
+    panel.add(labelnextfull );
 
 
     vollmondausgabe = new JTextField("");
     vollmondausgabe.setEditable(false);
-    vollmondausgabe.setLocation(200,50);
+    //vollmondausgabe.setLocation(200,50);
     vollmondausgabe.setVisible(true);
-    panel.add(vollmondausgabe);
+    panel.add(vollmondausgabe );
 
     JLabel labelnextnew = new JLabel("Nächster Neumond");
-    labelnextfull.setLocation(200,150);
+    //labelnextfull.setLocation(200,150);
     labelnextfull.setVisible(true);
-    panel.add(labelnextfull);
+    panel.add(labelnextnew );
 
 
     neumondausgabe = new JTextField("");
     neumondausgabe.setEditable(false);
-    neumondausgabe.setLocation(200,50);
+    //neumondausgabe.setLocation(200,50);
     neumondausgabe.setVisible(true);
-    panel.add(neumondausgabe);
+    panel.add(neumondausgabe );
 
 
 
@@ -108,7 +109,7 @@ public static void createGUI(){
 
     JButton calc = new JButton("Berechne");
     calc.setEnabled(true);
-    calc.setLocation(150,300);
+    //calc.setLocation(150,300);
     calc.setVisible(true);
     calc.addActionListener(new ActionListener() {
                                @Override
@@ -116,9 +117,10 @@ public static void createGUI(){
                                    calculate_moon_dates(readToday());
                                }
                            });
-            panel.add(calc);
+    panel.add(calc);
 
 
+    panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
     mainframe.getContentPane().add(panel);
     mainframe.pack();
