@@ -23,19 +23,16 @@ public static JTextField neumondausgabe;
 public static void setVollmondausgabe(String next){vollmondausgabe.setText(next);}
 public static void setNeumondausgabe(String next){neumondausgabe.setText(next);}
 
-
-
 public static void calculate_moon_dates(LocalDate now){
         if (now == null){
-        setVollmondausgabe("Heutiges Datum Fehlerhaft!");
+        setVollmondausgabe("Heutiges Datum fehlerhaft!");
         setNeumondausgabe("Format: yyyy-mm-dd");
         return;
         }
 
-
         double synodic_month = 29.530588;
 
-        LocalDate historic_full_moon = LocalDate.of(2000,1,21);
+        LocalDate historic_full_moon = LocalDate.of(1900,1,15);
         //LocalDate today = LocalDate.now();
         //LocalDate today = LocalDate.of(2021,9,25);
         LocalDate today = now;
@@ -50,17 +47,12 @@ public static void calculate_moon_dates(LocalDate now){
         double until_next_full = (1 - elapsed_nachkomma)*synodic_month;
         nextFull = today.plusDays((long)until_next_full);
 
-        System.out.println("Next full moon is on "+nextFull);
-
         /*multiply percentage remainder times synodic month to get remaining days to the next full moon*/
         double until_next_new = (0.5 - elapsed_nachkomma)*synodic_month +1;
         nextNew = today.plusDays((long)until_next_new);
 
-        System.out.println("Next new moon is on "+nextNew);
-
         setVollmondausgabe(nextFull.toString());
         setNeumondausgabe(nextNew.toString());
-
 }
 
 public static void createGUI(){
@@ -68,50 +60,39 @@ public static void createGUI(){
     mainframe.setSize(300,300);
     mainframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
     JPanel panel = new JPanel();
     panel.setLayout(new GridLayout(0,1));
 
     JLabel labelheute = new JLabel("Heutiges Datum");
-    //labelheute.setLocation(50,20);
     labelheute.setVisible(true);
     panel.add(labelheute);
 
     datumseingabe = new JTextField("yyyy-mm-dd");
     datumseingabe.setEditable(true);
-    //datumseingabe.setLocation(100,20);
     datumseingabe.setVisible(true);
-    panel.add(datumseingabe );
-
+    panel.add(datumseingabe);
 
     JLabel labelnextfull = new JLabel("Nächster Vollmond");
-    //labelnextfull.setLocation(50,50);
     labelnextfull.setVisible(true);
-    panel.add(labelnextfull );
-
+    panel.add(labelnextfull);
 
     vollmondausgabe = new JTextField("");
     vollmondausgabe.setEditable(false);
-    //vollmondausgabe.setLocation(200,50);
     vollmondausgabe.setVisible(true);
-    panel.add(vollmondausgabe );
+    panel.add(vollmondausgabe);
 
     JLabel labelnextnew = new JLabel("Nächster Neumond");
-    //labelnextfull.setLocation(200,150);
     labelnextfull.setVisible(true);
-    panel.add(labelnextnew );
+    panel.add(labelnextnew);
 
 
     neumondausgabe = new JTextField("");
     neumondausgabe.setEditable(false);
-    //neumondausgabe.setLocation(200,50);
     neumondausgabe.setVisible(true);
-    panel.add(neumondausgabe );
-
+    panel.add(neumondausgabe);
 
     JButton calc = new JButton("Berechne");
     calc.setEnabled(true);
-    //calc.setLocation(150,300);
     calc.setVisible(true);
     calc.addActionListener(new ActionListener() {
                                @Override
@@ -120,7 +101,6 @@ public static void createGUI(){
                                }
                            });
     panel.add(calc);
-
 
     panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
@@ -131,34 +111,19 @@ public static void createGUI(){
 }
 
 
-
-
-
 public static LocalDate readToday(){
 
-    Component[] components = mainframe.getContentPane().getComponents();
     String today = datumseingabe.getText();
-
-    /*for (Component c:components) {
-        if (c instanceof JTextField && ((JTextField) c).isEditable()){today = ((JTextField) c).getText();}
-    }*/
 
     if (today.equalsIgnoreCase("yyyy-mm-dd") || today.matches("^[y]{1,4}[-][m]{0,2}[-][d]{0,4}$") || today.isEmpty() || today.length()<8 || today.length()>10){return null;}
 
     String[] fractured = today.split("-");
-
     LocalDate dateOfToday = LocalDate.of(Integer.parseInt(fractured[0]), Integer.parseInt(fractured[1]), Integer.parseInt(fractured[2]));
 
     return dateOfToday;
 }
 
     public static void main(String[] args) throws IOException {
-	// write your code here
-    //calculate_moon_dates();
-
-    createGUI();
-
-
-
+	createGUI();
     }
 }
